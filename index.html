@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b18">
+  <meta name="description" content="A fast, neon-bright visual puzzle. Spot the odd pattern before the clock runs out.">
+  <title>ODD ONE OUT: Neon Challenge</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <div class="ambient ambient--one" aria-hidden="true"></div>
+  <div class="ambient ambient--two" aria-hidden="true"></div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="Odd One Out home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="brand-name">NEON<span>ARCADE</span></span>
+      </a>
+      <div class="topbar-note"><span class="live-dot"></span> OFFLINE READY</div>
+    </header>
+
+    <section class="screen intro-screen" id="home-screen" data-screen="home">
+      <div class="intro-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> THE 60-SECOND BRAIN RUSH</p>
+        <h1>ODD ONE<br><span>OUT</span><b>:</b> <em>NEON</em><br class="mobile-break"> CHALLENGE</h1>
+        <p class="intro-description">One pattern doesn't belong. Trust your eyes, find it fast, and keep your streak alive.</p>
+        <div class="intro-actions">
+          <button class="button button--primary" id="start-button" type="button">
+            <span>START CHALLENGE</span><span class="button-arrow" aria-hidden="true">↗</span>
+          </button>
+          <p class="micro-copy">60 SECONDS <span>·</span> 3 CHALLENGE TYPES <span>·</span> 1 ODD TILE</p>
+        </div>
+      </div>
+
+      <aside class="preview-card" aria-label="Example puzzle">
+        <div class="preview-top"><span>VISUAL SCAN // 01</span><span class="preview-signal">● LIVE</span></div>
+        <div class="preview-grid" aria-hidden="true">
+          <i class="shape shape--diamond"></i><i class="shape shape--diamond"></i><i class="shape shape--diamond"></i><i class="shape shape--diamond"></i>
+          <i class="shape shape--diamond"></i><i class="shape shape--diamond"></i><i class="shape shape--diamond"></i><i class="shape shape--diamond"></i>
+          <i class="shape shape--diamond"></i><i class="shape shape--diamond"></i><i class="shape shape--diamond"></i><i class="shape shape--diamond preview-odd"></i>
+          <i class="shape shape--diamond"></i><i class="shape shape--diamond"></i><i class="shape shape--diamond"></i><i class="shape shape--diamond"></i>
+        </div>
+        <div class="preview-footer"><span>SCAN. SPOT. SCORE.</span><span class="preview-coordinates">NX-04 / 16</span></div>
+        <div class="preview-glow" aria-hidden="true"></div>
+      </aside>
+
+      <div class="how-to">
+        <div class="how-to-heading"><span>01</span> HOW TO PLAY</div>
+        <div class="how-to-item"><span class="how-icon">◈</span><span><strong>Spot the difference</strong><small>Color, shape, or rotation</small></span></div>
+        <div class="how-to-item"><span class="how-icon">⌁</span><span><strong>Build your streak</strong><small>Combos earn bonus points</small></span></div>
+        <div class="how-to-item"><span class="how-icon">◷</span><span><strong>Beat the clock</strong><small>Wrong picks cost 4 seconds</small></span></div>
+      </div>
+    </section>
+
+    <section class="screen game-screen" id="game-screen" data-screen="game" hidden>
+      <div class="game-heading">
+        <div><p class="eyebrow"><span class="eyebrow-line"></span> EYES OPEN. CLOCK'S ON.</p><h2>Find the <em>odd one.</em></h2></div>
+        <button class="button button--quiet" id="home-button" type="button" aria-label="End this run and return home">EXIT RUN <span aria-hidden="true">×</span></button>
+      </div>
+
+      <div class="stats-row" aria-label="Game stats">
+        <div class="stat-card stat-card--timer" id="timer-card"><span class="stat-label">TIME LEFT</span><strong class="stat-value" id="timer-value">60</strong><span class="stat-unit">SEC</span><div class="timer-track"><span id="timer-bar"></span></div></div>
+        <div class="stat-card"><span class="stat-label">SCORE</span><strong class="stat-value" id="score-value">0</strong><span class="stat-unit">PTS</span></div>
+        <div class="stat-card"><span class="stat-label">STREAK</span><strong class="stat-value" id="streak-value">0</strong><span class="stat-unit">IN A ROW</span></div>
+        <div class="stat-card stat-card--best"><span class="stat-label">PERSONAL BEST</span><strong class="stat-value" id="best-value">0</strong><span class="stat-unit">PTS</span></div>
+      </div>
+
+      <div class="puzzle-card">
+        <div class="puzzle-meta"><span class="round-label" id="round-label">ROUND 01</span><span class="difficulty-label" id="difficulty-label">LEVEL 01</span></div>
+        <div class="challenge-instruction"><span class="target-icon" aria-hidden="true">⌖</span><div><span class="instruction-kicker">YOUR TARGET</span><strong id="instruction-text">Find the different color</strong></div><span class="target-pulse" aria-hidden="true"></span></div>
+        <div class="board-wrap"><div class="game-grid" id="game-grid" role="group" aria-label="Pattern grid"></div></div>
+        <div class="puzzle-footer"><span id="feedback-message" aria-live="polite">TAP THE ONE THAT DOESN'T MATCH</span><span id="grid-size-label">16 TILES</span></div>
+      </div>
+      <p class="game-tip"><span>TIP</span> The odd pattern changes every round. Stay sharp.</p>
+    </section>
+
+    <section class="screen end-screen" id="end-screen" data-screen="end" hidden>
+      <div class="end-card">
+        <div class="end-orbit" aria-hidden="true"><span>✦</span></div>
+        <p class="eyebrow"><span class="eyebrow-line"></span> CHALLENGE COMPLETE</p>
+        <h2 id="end-title">TIME'S UP.</h2>
+        <p class="end-subtitle" id="end-subtitle">Nice scan. Ready for another run?</p>
+        <div class="final-score"><span>YOUR SCORE</span><strong id="final-score-value">0</strong><small>POINTS</small></div>
+        <div class="end-stats"><div><span>BEST STREAK</span><strong id="final-streak-value">0</strong></div><div><span>ROUNDS CLEARED</span><strong id="final-rounds-value">0</strong></div></div>
+        <p class="new-best" id="new-best-message" hidden>✦ &nbsp; NEW PERSONAL BEST &nbsp; ✦</p>
+        <button class="button button--primary button--restart" id="restart-button" type="button"><span>PLAY AGAIN</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+        <button class="text-button" id="end-home-button" type="button">BACK TO TITLE</button>
+      </div>
+    </section>
+
+    <footer class="page-footer"><span>ODD ONE OUT <span class="footer-divider">/</span> NEON CHALLENGE</span><span>MADE FOR SHARP EYES <span class="footer-star">✳</span></span></footer>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
